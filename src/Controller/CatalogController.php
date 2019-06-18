@@ -8,10 +8,11 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class CatalogController extends Controller{
+class CatalogController extends AbstractController {
     public function show(){
         return $this->render("catalog/show.html.twig", array(
             "title" => 'Каталог'

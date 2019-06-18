@@ -8,5 +8,14 @@
         <requirement key="page">\d+</requirement>
     </route>
 
-    <!-- ... -->
+    <route id="article_xml"
+           path="/article_xml/{_locale}/{year}/{slug}.{_format}"
+           controller="App\Controller\ArticleController::show_xml">
+        <default key="_format">html</default>
+        <requirement key="_locale">en|ru</requirement>
+        <requirement key="_format">html|xml|json</requirement>
+        <requirement key="year">\d+</requirement>
+    </route>
+
+
 </routes>

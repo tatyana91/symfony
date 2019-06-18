@@ -1,0 +1,11 @@
+{% block menu %}
+    <nav>
+        <div>Меню:</div>
+        <ul>
+            <li><a href="{{ path("blog_annotation", {page: 12}) }}">Статья. Аннотация</a></li>
+            <li><a href="{{ path("blog_xml", {page: 12}) }}">Статья. Xml</a></li>
+            <li><a href="{{ path("blog_php", {page: 12}) }}">Статья. Php</a></li>
+            <li><a href="{{ path("blog_yaml", {page: 12}) }}">Статья. Yaml</a></li>
+        </ul>
+    </nav>
+{% endblock %}

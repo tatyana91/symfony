@@ -1,0 +1,29 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+#app_lucky_number:
+    #path: /lucky/number
+    #controller: App\Controller\LuckyController::number
+
+app_catalog_show:
+   path: /catalog/show
+   controller: App\Controller\CatalogController::show
+
+# config/routes.yamls
+blog_yaml:
+  path: /blog_yaml/{page}
+  controller: App\Controller\BlogController::list_yaml
+  requirements:
+    page: '\d+'
+
+# config/routes.yaml
+article_yaml:
+  path:     /article_yaml/{_locale}/{year}/{slug}.{_format}
+  controller: App\Controller\ArticleController::show_yaml
+  defaults:
+      _format: html
+  requirements:
+      _locale:  en|ru
+      _format:  html|xml|json
+      year:     \d+
