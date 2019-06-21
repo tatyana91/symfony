@@ -133,7 +133,6 @@ class BlogController extends AbstractController
     /**
      * @Route("/task/insert", name="task_insert")
      *
-     * @param Request $request
      * @return Response
      */
     public function task_insert(){
@@ -163,5 +162,72 @@ class BlogController extends AbstractController
             ->find($id);
 
         return new Response($house->getAddress());
+    }
+
+    /**
+     * @Route("/task/all", name="task_all")
+     *
+     * @return Response
+     */
+    public function task_all(){
+        $repository = $this
+            ->getDoctrine()
+            ->getRepository(House::class);
+
+        $houses = $repository->createQueryBuilder('house')
+            ->where('house.address LIKE :address')
+            ->setParameter('address', 'Ворон%')
+            ->getQuery()
+            ->getResult();
+
+        $houses = var_export($houses);
+
+        return new Response($houses);
+    }
+
+    /**
+     * @Route("/task/update/{id}", name="task_update")
+     *
+     * @return Response
+     */
+    public function task_update($id){
+        $entity_manager = $this->getDoctrine()->getManager();
+
+        $house = $entity_manager
+            ->getRepository(House::class)
+            ->find($id);
+
+        if (!$house) {
+            throw $this->createNotFoundException('Такого дома нет');
+        }
+
+        $house->setSquare(120);
+        $house->setAddress('Воронцовская 35');
+
+        $entity_manager->flush();
+
+        return new Response("Изменения дома с id = ".$house->getId()." прошло успешно.");
+    }
+
+    /**
+     * @Route("/task/delete/{id}", name="task_delete")
+     *
+     * @return Response
+     */
+    public function task_delete($id){
+        $entity_manager = $this->getDoctrine()->getManager();
+
+        $house = $entity_manager
+            ->getRepository(House::class)
+            ->find($id);
+
+        if (!$house) {
+            throw $this->createNotFoundException('Такого дома нет');
+        }
+
+        $entity_manager->remove($house);
+        $entity_manager->flush();
+
+        return new Response("Дом с id = $id успешно удален.");
     }
 }
